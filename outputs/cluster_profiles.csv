@@ -1,0 +1,3 @@
+CLUSTER,N,DefaultRate,AvgIncome,AvgCredit,AvgCreditIncomeRatio,AvgExtSource,AvgBureauLoans,AvgAge,PersonaName
+0,206939,0.087,173881.616,419659.94,2.544,0.499,4.859,42.6,Moderate-Risk Aspirational Borrower
+1,100572,0.067,153257.272,968093.25,6.871,0.538,4.572,46.7,Stable Salaried Professional
