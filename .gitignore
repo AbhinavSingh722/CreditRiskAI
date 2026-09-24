@@ -30,3 +30,7 @@ generate_report.py
 check_nb*.py
 audit.py
 final_check.py
+
+# Large data files (>100 MB -- excluded from git)
+data/application_train.csv
+data/bureau.csv
