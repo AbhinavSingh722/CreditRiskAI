@@ -1,0 +1,37 @@
+## Render Blueprint — deploys both Backend (FastAPI) & Frontend (Streamlit)
+## Usage: Connect your GitHub repo → Render auto-detects this file → one-click deploy
+
+services:
+  # ── FastAPI Backend ──────────────────────────────
+  - type: web
+    name: creditriskai-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements-backend.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MODEL_PATH
+        value: ./models/pipeline_bundle.pkl
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+    healthCheckPath: /health
+
+  # ── Streamlit Frontend ──────────────────────────
+  - type: web
+    name: creditriskai-dashboard
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements-frontend.txt
+    startCommand: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: API_BASE
+        fromService:
+          name: creditriskai-api
+          type: web
+          property: host
+      - key: PYTHON_VERSION
+        value: "3.11.9"
